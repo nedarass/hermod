@@ -1,7 +1,7 @@
 /*
  * imu.h
  * Sensor: MPU6050
- * Description: Hyperloop projesi için sadeleştirilmiş ve optimize edilmiş IMU kütüphanesi.
+
  */
 
 #ifndef SENSORS_IMU_H_
