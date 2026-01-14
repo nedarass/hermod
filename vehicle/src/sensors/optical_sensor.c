@@ -269,48 +269,6 @@ void OpticalSensor_RealTest(void) {
     OpticalSensor_DebugOutput();
 }
 
-// ============= HIZLI TEST FONKSİYONU (Basit simülasyon) =============
-void OpticalSensor_QuickTest(void) {
-    printf("\n=== HIZLI TEST (5 reflektör) ===\n");
-    
-    OpticalSensor_Init();
-    
-    float test_speeds[] = {5.0f, 8.0f, 12.0f, 8.0f, 6.0f}; // Farklı hızlar
-    float expected_times[] = {0.8f, 0.5f, 0.333f, 0.5f, 0.667f}; // 4m / hız
-    
-    for (int i = 0; i < 5; i++) {
-        printf("\n--- Test %d ---\n", i+1);
-        printf("Beklenen hız: %.1f m/s\n", test_speeds[i]);
-        printf("Beklenen süre: %.3f s\n", expected_times[i]);
-        
-        // Bekle (hıza göre)
-        uint32_t wait_time = (uint32_t)(expected_times[i] * 1000);
-        printf("Bekleniyor: %lu ms...\n", wait_time);
-        HAL_Delay(wait_time);
-        
-        // Sensör sinyali simüle et
-        OpticalSensor_EXTI_Callback(OPTICAL_SENSOR_PIN);
-        
-        // Sonuçları göster
-        printf("Ölçülen hız: %.2f m/s\n", VehicleState.current_velocity);
-        printf("Konum: %.2f m\n", VehicleState.current_position);
-        printf("Reflektör sayısı: %lu\n", VehicleState.reflector_count);
-        
-        // Hata hesapla
-        float error = fabs((test_speeds[i] - VehicleState.current_velocity) / test_speeds[i] * 100.0f);
-        printf("Hata oranı: %.1f%%\n", error);
-        
-        if (error < 10.0f) {
-            printf("Sonuç: BAŞARILI ✓\n");
-        } else {
-            printf("Sonuç: BAŞARISIZ ✗\n");
-        }
-    }
-    
-    printf("\n=== HIZLI TEST TAMAMLANDI ===\n");
-    OpticalSensor_DebugOutput();
-}
-
 void OpticalSensor_DebugOutput(void) {
     printf("\n--- OPTICAL SENSOR DEBUG ---\n");
     printf("Reflektör Sayısı: %lu\n", VehicleState.reflector_count);
