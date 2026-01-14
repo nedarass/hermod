@@ -3,6 +3,7 @@
  
 
 #include "sensors/imu.h"
+#include "shared_data.h"
 
 // --- Global Değişkenler ---
 static I2C_HandleTypeDef *mpu_i2c;      // I2C handler'ı globalde tutuyoruz
